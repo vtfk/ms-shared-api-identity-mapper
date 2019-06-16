@@ -5,7 +5,7 @@ const anonymize = require('../lib/anonymize-fnr')
 const fixDocument = require('../lib/fix-document')
 const logger = require('../lib/logger')
 
-async function getIdentitiesFromFnr(request, response, fnr) {
+async function getIdentitiesFromFnr (request, response, fnr) {
   const db = await mongo()
   const identities = db.collection(process.env.MONGODB_COLLECTION)
   logger('info', ['get-identities-from-upn', 'getIdentitiesFromFnr', anonymize(fnr), 'start'])

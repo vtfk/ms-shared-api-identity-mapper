@@ -4,7 +4,7 @@ const withTokenAuth = require('../lib/token-auth')
 const fixDocument = require('../lib/fix-document')
 const logger = require('../lib/logger')
 
-async function getIdentitiesFromUpn(request, response, upn) {
+async function getIdentitiesFromUpn (request, response, upn) {
   const db = await mongo()
   const identities = db.collection(process.env.MONGODB_COLLECTION)
   logger('info', ['get-identities-from-upn', 'getIdentitiesFromUpn', upn, 'start'])
