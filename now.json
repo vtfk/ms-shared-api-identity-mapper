@@ -1,0 +1,46 @@
+{
+  "version": 2,
+  "name": "ms-shared-api-identity-mapper",
+  "scope": "minelev",
+  "alias": [
+    "identities.api.minelev.no"
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "MONGODB_CONNECTION": "@db-tfkcosmostest-readonly",
+    "MONGODB_COLLECTION": "identities",
+    "MONGODB_NAME": "felles",
+    "JWT_SECRET": "@minelev-jwt-secret",
+    "PAPERTRAIL_HOST": "@tfk-papertrail-host",
+    "PAPERTRAIL_PORT": "@tfk-papertrail-port",
+    "PAPERTRAIL_HOSTNAME": "identities"
+  },
+  "builds": [
+    { 
+      "src": "/api/*.js",
+      "use": "@now/node" 
+    },
+    {
+      "src": "*.md",
+      "use": "@now/md"
+    }
+  ],
+  "routes": [
+    { "src": "/favicon.ico",
+      "dest": "/static/favicon.ico"
+    },
+    { "src": "/identities/upn/(.*)",
+      "dest": "/api/get-identities-from-upn.js"
+    },
+    { "src": "/identities/username/(.*)",
+      "dest": "/api/get-identities-from-username.js"
+    },
+    { "src": "/identities/fnr/(.*)",
+      "dest": "/api/get-identities-from-fnr.js"
+    },
+    { 
+      "src": "/(.*)",
+      "dest": "/README.html" 
+    }
+  ]
+}
