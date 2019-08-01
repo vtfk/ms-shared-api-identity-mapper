@@ -1,4 +1,3 @@
-const { send } = require('micro')
 const mongo = require('../lib/mongo')
 const withTokenAuth = require('../lib/token-auth')
 const fixDocument = require('../lib/fix-document')
@@ -12,10 +11,11 @@ async function getIdentitiesFromUpn (request, response, upn) {
     const document = await identities.findOne({ upn: upn })
     const status = document !== null ? 200 : 404
     logger('info', ['get-identities-from-upn', 'getIdentitiesFromUpn', upn, status])
-    send(response, status, fixDocument(document))
+    response.json(fixDocument(document))
   } catch (error) {
     logger('error', ['get-identities-from-upn', 'getIdentitiesFromUpn', upn, error])
-    send(response, 500, error)
+    response.status(500)
+    response.send(error)
   }
 }
 
