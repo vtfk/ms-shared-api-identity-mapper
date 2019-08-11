@@ -19,23 +19,75 @@ $ curl -v http://localhost:3000/identities/upn/dummy.test@vtfk.no
 {
   upn: "dummy.test@vtfk.no",
   fnr: "12345678987",
-  username: "160703fluffy",
+  sam: "160703fluffy",
+  upnOld: "dummy.test@t-fk.no",
+  samOld: "fluffy",
+  origin: "tfk",
+  isStudent: true,
+  isEmployee: false
 }
 ```
 
-### `GET /identities/username/:username`
+### `GET /identities/upn/old/:upn`
 
-Get identities for a given username.
+Get identities for an old upn.
 
 ```
-$ curl -v http://localhost:3000/identities/username/160703fluffy
+$ curl -v http://localhost:3000/identities/upn/old/dummy.test@t-fk.no
 ```
 
 ```JavaScript
 {
   upn: "dummy.test@vtfk.no",
   fnr: "12345678987",
-  username: "160703fluffy",
+  sam: "160703fluffy",
+  upnOld: "dummy.test@t-fk.no",
+  samOld: "fluffy",
+  origin: "tfk",
+  isStudent: true,
+  isEmployee: false
+}
+```
+
+### `GET /identities/sam/:sam`
+
+Get identities for a given samAccaountName.
+
+```
+$ curl -v http://localhost:3000/identities/sam/160703fluffy
+```
+
+```JavaScript
+{
+  upn: "dummy.test@vtfk.no",
+  fnr: "12345678987",
+  sam: "160703fluffy",
+  upnOld: "dummy.test@t-fk.no",
+  samOld: "fluffy",
+  origin: "tfk",
+  isStudent: true,
+  isEmployee: false
+}
+```
+
+### `GET /identities/sam/old/:sam`
+
+Get identities for an old samAccaountName.
+
+```
+$ curl -v http://localhost:3000/identities/sam/old/fluffy
+```
+
+```JavaScript
+{
+  upn: "dummy.test@vtfk.no",
+  fnr: "12345678987",
+  sam: "160703fluffy",
+  upnOld: "dummy.test@t-fk.no",
+  samOld: "fluffy",
+  origin: "tfk",
+  isStudent: true,
+  isEmployee: false
 }
 ```
 
@@ -52,7 +104,12 @@ $ curl -v http://localhost:3000/identities/fnr/dummy.12345678987
 {
   upn: "dummy.test@vtfk.no",
   fnr: "12345678987",
-  username: "160703fluffy",
+  sam: "160703fluffy",
+  upnOld: "dummy.test@t-fk.no",
+  samOld: "fluffy",
+  origin: "tfk",
+  isStudent: true,
+  isEmployee: false
 }
 ```
 
