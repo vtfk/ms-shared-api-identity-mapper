@@ -3,17 +3,19 @@ const withTokenAuth = require('../lib/token-auth')
 const fixDocument = require('../lib/fix-document')
 const logger = require('../lib/logger')
 
-async function getIdentitiesFromUpn (request, response, upn) {
+async function getIdentitiesFromUpn (request, response, params) {
   const db = await mongo()
   const identities = db.collection(process.env.MONGODB_COLLECTION)
-  logger('info', ['get-identities-from-upn', 'getIdentitiesFromUpn', upn, 'start'])
+  const { id: upn, old } = params
+  const key = `upn${old ? 'Old' : ''}`
+  logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, upn, 'start'])
   try {
-    const document = await identities.findOne({ upn: upn })
+    const document = await identities.findOne({ [key]: upn })
     const status = document !== null ? 200 : 404
-    logger('info', ['get-identities-from-upn', 'getIdentitiesFromUpn', upn, status])
+    logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, upn, status])
     response.json(fixDocument(document))
   } catch (error) {
-    logger('error', ['get-identities-from-upn', 'getIdentitiesFromUpn', upn, error])
+    logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, upn, error])
     response.status(500)
     response.send(error)
   }

@@ -32,8 +32,8 @@
     { "src": "/identities/upn/(.*)",
       "dest": "/api/get-identities-from-upn.js"
     },
-    { "src": "/identities/username/(.*)",
-      "dest": "/api/get-identities-from-username.js"
+    { "src": "/identities/sam/(.*)",
+      "dest": "/api/get-identities-from-sam.js"
     },
     { "src": "/identities/fnr/(.*)",
       "dest": "/api/get-identities-from-fnr.js"
