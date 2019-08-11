@@ -7,9 +7,9 @@
   ],
   "env": {
     "NODE_ENV": "production",
-    "MONGODB_CONNECTION": "@db-tfkcosmostest-readonly",
-    "MONGODB_COLLECTION": "identities",
-    "MONGODB_NAME": "felles",
+    "MONGODB_CONNECTION": "@db-cosmos-prod-connection-read",
+    "MONGODB_COLLECTION": "identity",
+    "MONGODB_NAME": "minelev",
     "JWT_SECRET": "@minelev-jwt-secret",
     "PAPERTRAIL_HOST": "@tfk-papertrail-host",
     "PAPERTRAIL_PORT": "@tfk-papertrail-port",
