@@ -1,5 +1,5 @@
 const mongo = require('../lib/mongo')
-const withTokenAuth = require('../lib/token-auth')
+const withParams = require('../lib/retrieve-params')
 const anonymize = require('../lib/anonymize-fnr')
 const fixDocument = require('../lib/fix-document')
 const logger = require('../lib/logger')
@@ -21,4 +21,4 @@ async function getIdentitiesFromFnr (request, response, params) {
   }
 }
 
-module.exports = async (request, response) => withTokenAuth(request, response, getIdentitiesFromFnr)
+module.exports = async (request, response) => withParams(request, response, getIdentitiesFromFnr)
