@@ -29,13 +29,28 @@
     { "src": "/favicon.ico",
       "dest": "/static/favicon.ico"
     },
-    { "src": "/identities/upn/(.*)",
+    { "src": "/identities/upns",
+      "methods": ["POST"],
       "dest": "/api/get-identities-from-upn.js"
     },
-    { "src": "/identities/sam/(.*)",
+    { "src": "/identities/upn/(.*)",
+      "methods": ["GET"],
+      "dest": "/api/get-identities-from-upn.js"
+    },
+    { "src": "/identities/sams",
+      "methods": ["POST"],
       "dest": "/api/get-identities-from-sam.js"
     },
+    { "src": "/identities/sam/(.*)",
+      "methods": ["GET"],
+      "dest": "/api/get-identities-from-sam.js"
+    },
+    { "src": "/identities/fnrs",
+      "methods": ["POST"],
+      "dest": "/api/get-identities-from-fnr.js"
+    },
     { "src": "/identities/fnr/(.*)",
+      "methods": ["GET"],
       "dest": "/api/get-identities-from-fnr.js"
     },
     { 
