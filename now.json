@@ -41,6 +41,10 @@
       "methods": ["POST"],
       "dest": "/api/get-identities-from-sam.js"
     },
+    { "src": "/identities/sams/old",
+      "methods": ["POST"],
+      "dest": "/api/get-identities-from-sam.js"
+    },
     { "src": "/identities/sam/(.*)",
       "methods": ["GET"],
       "dest": "/api/get-identities-from-sam.js"
