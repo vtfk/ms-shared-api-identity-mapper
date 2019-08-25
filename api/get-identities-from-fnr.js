@@ -10,7 +10,7 @@ async function getIdentitiesFromFnr (request, response, params) {
   const { id: fnr, fnrs } = params
   logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromFnr', anonymize(fnrs || fnr), 'start'])
   if (!fnr && !fnrs) {
-    const error = new Error(`Missing required input`)
+    const error = new Error('Missing required input')
     logger('error', ['api', 'get-identities-from-fnr', 'getIdentitiesFromFnr', anonymize(fnrs || fnr), error])
     response.status(400)
     response.send(error)

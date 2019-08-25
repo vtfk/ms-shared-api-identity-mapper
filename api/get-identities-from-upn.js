@@ -10,7 +10,7 @@ async function getIdentitiesFromUpn (request, response, params) {
   const key = `upn${old ? 'Old' : ''}`
   logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'start'])
   if (!upn && !upns) {
-    const error = new Error(`Missing required input`)
+    const error = new Error('Missing required input')
     logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, error])
     response.status(400)
     response.send(error)

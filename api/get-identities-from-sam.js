@@ -10,7 +10,7 @@ async function getIdentitiesFromSam (request, response, params) {
   const key = `sam${old ? 'Old' : ''}`
   logger('info', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, 'start'])
   if (!key && !sams) {
-    const error = new Error(`Missing required input`)
+    const error = new Error('Missing required input')
     logger('error', ['api', 'get-identities-from-sam', 'getIdentitiesFromSam', `${sams ? sams.join(', ') : sam}`, error])
     response.status(400)
     response.send(error)
