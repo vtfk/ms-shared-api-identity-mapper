@@ -33,6 +33,10 @@
       "methods": ["POST"],
       "dest": "/api/get-identities-from-upn.js"
     },
+    { "src": "/identities/upns/old",
+      "methods": ["POST"],
+      "dest": "/api/get-identities-from-upn.js"
+    },
     { "src": "/identities/upn/(.*)",
       "methods": ["GET"],
       "dest": "/api/get-identities-from-upn.js"

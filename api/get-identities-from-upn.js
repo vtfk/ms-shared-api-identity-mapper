@@ -6,18 +6,25 @@ const logger = require('../lib/logger')
 async function getIdentitiesFromUpn (request, response, params) {
   const db = await mongo()
   const identities = db.collection(process.env.MONGODB_COLLECTION)
-  const { id: upn, old } = params
+  const { id: upn, old, upns } = params
   const key = `upn${old ? 'Old' : ''}`
-  logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, upn, 'start'])
-  try {
-    const document = await identities.findOne({ [key]: upn })
-    const status = document !== null ? 200 : 404
-    logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, upn, status])
-    response.json(fixDocument(document))
-  } catch (error) {
-    logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, upn, error])
-    response.status(500)
+  logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'start'])
+  if (!upn && !upns) {
+    const error = new Error(`Missing required input`)
+    logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, error])
+    response.status(400)
     response.send(error)
+  } else {
+    try {
+      const document = upns ? await identities.find({ [key]: { $in: upns } }).toArray() : await identities.findOne({ [key]: upn })
+      const status = document !== null ? 200 : 404
+      logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, status])
+      response.json(fixDocument(document))
+    } catch (error) {
+      logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, error])
+      response.status(500)
+      response.send(error)
+    }
   }
 }
 

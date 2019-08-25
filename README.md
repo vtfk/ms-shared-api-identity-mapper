@@ -12,7 +12,41 @@ Microservice for mapping identities across internal services
 Get identities for an array of upns.
 
 ```
-$ curl -v http://localhost:3000/identities/upn -d @test/data/upns.json \
+$ curl -v http://localhost:3000/identities/upns -d @test/data/upns.json \
+--header "Content-Type: application/json"
+```
+
+```JavaScript
+[
+  {
+    upn: "dummy.test@vtfk.no",
+    fnr: "12345678987",
+    sam: "160703fluffy",
+    upnOld: "dummy.test@t-fk.no",
+    samOld: "fluffy",
+    origin: "tfk",
+    isStudent: true,
+    isEmployee: false
+  },
+  {
+    upn: "donny.test@vtfk.no",
+    fnr: "98765432123",
+    sam: "160703star",
+    upnOld: "donny.test@t-fk.no",
+    samOld: "star",
+    origin: "vfk",
+    isStudent: true,
+    isEmployee: false
+  }
+]
+```
+
+### `POST /identities/upns/old`
+
+Get identities for an array of old upns.
+
+```
+$ curl -v http://localhost:3000/identities/upns/old -d @test/data/upns.json \
 --header "Content-Type: application/json"
 ```
 
@@ -88,7 +122,41 @@ $ curl -v http://localhost:3000/identities/upn/old/dummy.test@t-fk.no
 Get identities for a an array of samAccaountNames.
 
 ```
-$ curl -v http://localhost:3000/identities/sam -d @test/data/sams.json \
+$ curl -v http://localhost:3000/identities/sams -d @test/data/sams.json \
+--header "Content-Type: application/json"
+```
+
+```JavaScript
+[
+  {
+    upn: "dummy.test@vtfk.no",
+    fnr: "12345678987",
+    sam: "160703fluffy",
+    upnOld: "dummy.test@t-fk.no",
+    samOld: "fluffy",
+    origin: "tfk",
+    isStudent: true,
+    isEmployee: false
+  },
+  {
+    upn: "donny.test@vtfk.no",
+    fnr: "98765432123",
+    sam: "160703star",
+    upnOld: "donny.test@t-fk.no",
+    samOld: "star",
+    origin: "vfk",
+    isStudent: true,
+    isEmployee: false
+  }
+]
+```
+
+### `POST /identities/sams/old`
+
+Get identities for a an array of old samAccaountNames.
+
+```
+$ curl -v http://localhost:3000/identities/sams/old -d @test/data/sams.json \
 --header "Content-Type: application/json"
 ```
 

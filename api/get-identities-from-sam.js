@@ -16,7 +16,7 @@ async function getIdentitiesFromSam (request, response, params) {
     response.send(error)
   } else {
     try {
-      const document = sams ? await identities.findOne({ [key]: { $in: sams } }) : await identities.findOne({ [key]: sam })
+      const document = sams ? await identities.find({ [key]: { $in: sams } }) : await identities.findOne({ [key]: sam })
       const status = document !== null ? 200 : 404
       logger('info', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, status])
       response.json(fixDocument(document))
