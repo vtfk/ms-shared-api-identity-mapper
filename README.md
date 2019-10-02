@@ -299,6 +299,7 @@ JWT_SECRET=your-jwt-api-secret
 MONGODB_CONNECTION=connection-string-to-your-mongodb
 MONGODB_COLLECTION=mongodb-collection-name
 MONGODB_NAME=mongodb-database-name
+DEFAULT_ORIGIN=default-origin
 PAPERTRAIL_HOST=your-papertrail-host
 PAPERTRAIL_PORT=your-papertrail-post
 PAPERTRAIL_HOSTNAME=your-papertrail-hostname
