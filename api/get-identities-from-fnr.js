@@ -7,11 +7,7 @@ const logger = require('../lib/logger')
 async function getIdentitiesFromFnr (request, response, params) {
   const db = await mongo()
   const identities = db.collection(process.env.MONGODB_COLLECTION)
-  const { id: fnr, fnrs } = params
-  let { origin } = params
-  if (!origin) {
-    origin = process.env.DEFAULT_ORIGIN
-  }
+  const { id: fnr, fnrs, origin } = params
   logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromFnr', anonymize(fnrs || fnr), 'origin', origin, 'start'])
   if (!fnr && !fnrs) {
     const error = new Error('Missing required input')

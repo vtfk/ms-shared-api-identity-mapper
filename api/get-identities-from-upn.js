@@ -6,12 +6,8 @@ const logger = require('../lib/logger')
 async function getIdentitiesFromUpn (request, response, params) {
   const db = await mongo()
   const identities = db.collection(process.env.MONGODB_COLLECTION)
-  const { id: upn, old, upns } = params
+  const { id: upn, old, upns, origin } = params
   const key = `upn${old ? 'Old' : ''}`
-  let { origin } = params
-  if (!origin) {
-    origin = process.env.DEFAULT_ORIGIN
-  }
   logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'origin', origin, 'start'])
   if (!upn && !upns) {
     const error = new Error('Missing required input')

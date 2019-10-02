@@ -6,12 +6,8 @@ const logger = require('../lib/logger')
 async function getIdentitiesFromSam (request, response, params) {
   const db = await mongo()
   const identities = db.collection(process.env.MONGODB_COLLECTION)
-  const { id: sam, old, sams } = params
+  const { id: sam, old, sams, origin } = params
   const key = `sam${old ? 'Old' : ''}`
-  let { origin } = params
-  if (!origin) {
-    origin = process.env.DEFAULT_ORIGIN
-  }
   logger('info', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, 'origin', origin, 'start'])
   if (!key && !sams) {
     const error = new Error('Missing required input')
