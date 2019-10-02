@@ -10,6 +10,7 @@
     "MONGODB_CONNECTION": "@db-cosmos-prod-connection-read",
     "MONGODB_COLLECTION": "identity",
     "MONGODB_NAME": "minelev",
+    "DEFAULT_ORIGIN": "tfk",
     "JWT_SECRET": "@minelev-jwt-secret",
     "PAPERTRAIL_HOST": "@tfk-papertrail-host",
     "PAPERTRAIL_PORT": "@tfk-papertrail-port",

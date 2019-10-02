@@ -8,20 +8,24 @@ async function getIdentitiesFromSam (request, response, params) {
   const identities = db.collection(process.env.MONGODB_COLLECTION)
   const { id: sam, old, sams } = params
   const key = `sam${old ? 'Old' : ''}`
-  logger('info', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, 'start'])
+  let { origin } = params
+  if (!origin) {
+    origin = process.env.DEFAULT_ORIGIN
+  }
+  logger('info', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, 'origin', origin, 'start'])
   if (!key && !sams) {
     const error = new Error('Missing required input')
-    logger('error', ['api', 'get-identities-from-sam', 'getIdentitiesFromSam', `${sams ? sams.join(', ') : sam}`, error])
+    logger('error', ['api', 'get-identities-from-sam', 'getIdentitiesFromSam', `${sams ? sams.join(', ') : sam}`, 'origin', origin, error])
     response.status(400)
     response.send(error)
   } else {
     try {
-      const document = sams ? await identities.find({ [key]: { $in: sams } }) : await identities.findOne({ [key]: sam })
+      const document = sams ? await identities.find({ [key]: { $in: sams }, origin: origin }) : await identities.findOne({ [key]: sam, origin: origin })
       const status = document !== null ? 200 : 404
-      logger('info', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, status])
+      logger('info', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, 'origin', origin, status])
       response.json(fixDocument(document))
     } catch (error) {
-      logger('error', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, error])
+      logger('error', ['get-identities-from-sam', 'getIdentitiesFromSam', key, `${sams ? sams.join(', ') : sam}`, 'origin', origin, error])
       response.status(500)
       response.send(error)
     }

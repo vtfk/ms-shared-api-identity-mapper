@@ -8,20 +8,24 @@ async function getIdentitiesFromUpn (request, response, params) {
   const identities = db.collection(process.env.MONGODB_COLLECTION)
   const { id: upn, old, upns } = params
   const key = `upn${old ? 'Old' : ''}`
-  logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'start'])
+  let { origin } = params
+  if (!origin) {
+    origin = process.env.DEFAULT_ORIGIN
+  }
+  logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'origin', origin, 'start'])
   if (!upn && !upns) {
     const error = new Error('Missing required input')
-    logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, error])
+    logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'origin', origin, error])
     response.status(400)
     response.send(error)
   } else {
     try {
-      const document = upns ? await identities.find({ [key]: { $in: upns } }).toArray() : await identities.findOne({ [key]: upn })
+      const document = upns ? await identities.find({ [key]: { $in: upns }, origin: origin }).toArray() : await identities.findOne({ [key]: upn, origin: origin })
       const status = document !== null ? 200 : 404
-      logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, status])
+      logger('info', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'origin', origin, status])
       response.json(fixDocument(document))
     } catch (error) {
-      logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, error])
+      logger('error', ['api', 'get-identities-from-upn', 'getIdentitiesFromUpn', key, `${upns ? upns.join(', ') : upn}`, 'origin', origin, error])
       response.status(500)
       response.send(error)
     }
