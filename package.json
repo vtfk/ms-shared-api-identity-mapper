@@ -1,7 +1,7 @@
 {
   "name": "ms-shared-api-identity-mapper",
   "description": "Microservice for mapping identities across internal services",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "license": "MIT",
   "private": true,
   "author": {
